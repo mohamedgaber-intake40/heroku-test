@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,4 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/test',function(){
     return User::all();
+});
+
+Route::get('/file',function(){
+   $path =Storage::disk('local')->put('file.txt','blablablabla');
+   $file = Storage::disk('local')->get($path);
+   $mime = Storage::mimeType($path);
+    return response($file)->header('Content-Type', $mime);
 });
