@@ -26,7 +26,7 @@ Route::get('/test',function(){
 
 Route::get('/file',function(){
    $path =Storage::disk('local')->put('file.txt','blablablabla');
-   $file = Storage::disk('local')->get($path);
-   $mime = Storage::mimeType($path);
+   $file = Storage::disk('local')->get('file.txt');
+   $mime = Storage::mimeType('file.txt');
     return response($file)->header('Content-Type', $mime);
 });
